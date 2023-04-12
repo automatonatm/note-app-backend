@@ -1,20 +1,23 @@
-import express from "express";
 
-const app = express()
-
-const port = 5000
-
-
-
-app.get("/", (req, res) => {
-  res.send("OK.io")
-})
+import app from "./app";
+import env from "./util/validateEnv";
+import dbConnect from './config/dbConnect'
 
 
 
+async function startServer() {
+ 
+  const port = env.PORT;
+ 
+  dbConnect().then();
+  
+  app.listen(port, () => {
+    console.log(`Server running on port: ${port}`);
+  });
+  
+}
 
-app.listen(port, () => {
 
-  console.log(`Server running on port: ${port}`);
+startServer()
 
-})
+
